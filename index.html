@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cat/Dog Image Generator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Random Cat & Dog Image Generator</h1>
+
+<div class="image-container">Generator
+  <img id="random-image" src="./cat.jfif" alt="Random Image">
+</div>
+
+<div class="button-container">
+  <button id="cat-button">Get Random Cat Image</button>
+  <button id="dog-button">Get Random Dog Image</button>
+</div>
+<script >
+const catButton = document.getElementById('cat-button');
+const dogButton = document.getElementById('dog-button');
+const randomImage = document.getElementById('random-image');
+
+catButton.addEventListener('click', fetchCatImage);
+dogButton.addEventListener('click', fetchDogImage);
+
+function fetchCatImage() {
+  fetch('https://api.thecatapi.com/v1/images/search')
+    .then(response => response.json())
+    .then(data => {
+      const catImageUrl = data[0].url;
+      randomImage.src = catImageUrl;
+    })
+    .catch(error => console.log(error));
+}
+
+function fetchDogImage() {
+  fetch('https://dog.ceo/api/breeds/image/random')
+    .then(response => response.json())
+    .then(data => {
+      const dogImageUrl = data.message;
+      randomImage.src = dogImageUrl;
+    })
+    .catch(error => console.log(error));
+}
+
+</script>
+</body>
+</html>
